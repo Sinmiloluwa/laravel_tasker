@@ -13,7 +13,7 @@ class TaskController extends Controller
     {
         $tasks = Task::with('user')->orderBy('due_date')->get();
 
-        return view('admin.tasks.index', compact('tasks','users'));
+        return view('admin.tasks.index', compact('tasks'));
     }
 
     public function create()

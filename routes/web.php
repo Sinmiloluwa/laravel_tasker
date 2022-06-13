@@ -44,7 +44,8 @@ Route::group(['middleware' => 'auth'], function() {
         'prefix' => 'user',
         'as' => 'user.'
     ], function(){
-        // Route::get('tasks', [App\Http\Controllers\User\TaskController::class, 'index'])->name('tasks.index');
+        Route::get('tasks', [App\Http\Controllers\User\TaskController::class, 'index'])->name('tasks.index');
+        Route::post('tasks/completed/{task}', [App\Http\Controllers\User\TaskController::class, 'completed']);
     });
 
     

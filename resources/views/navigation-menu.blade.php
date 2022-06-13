@@ -21,6 +21,13 @@
                         {{ __('All Tasks') }}
                     </x-jet-nav-link>
                 </div>
+                @if (Auth::user()->is_admin == 1)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ url('tasks') }}" :active="request()->routeIs('user.tasks.index')">
+                        {{ __('Recently Completed') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

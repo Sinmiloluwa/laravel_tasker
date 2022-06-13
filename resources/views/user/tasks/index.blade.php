@@ -6,11 +6,19 @@
     </x-slot>
 
     <div class="py-12">
+    
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex flex-col">
-                        <div class="-my-2 overflow-x-auto sm:mx-6 lg:mx-8">
+                            @if (\Session::has('success'))
+                            <div class="alert alert-success">
+                                <ul>
+                                    <li>{!! \Session::get('success') !!}</li>
+                                </ul>
+                            </div>
+                            @endif
+                                <div class="-my-2 overflow-x-auto sm:mx-6 lg:mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6">
                                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-md">
                                     <table class="min-w-full divide-y divide-gray-200">
@@ -38,6 +46,12 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {{$task->due_date}}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <form action="{{url('user/tasks/completed',$task)}}" method="POST">
+                                                    @csrf
+                                                    <button class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white" type="submit">Completed</button>
+                                                </form>
                                                 </td>
                                             </tr>
                                             @endforeach
