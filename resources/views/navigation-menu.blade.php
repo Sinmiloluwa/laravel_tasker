@@ -17,7 +17,7 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('user.tasks.index')">
+                    <x-jet-nav-link href="{{ url('tasks') }}" :active="request()->routeIs('user.tasks.index')">
                         {{ __('All Tasks') }}
                     </x-jet-nav-link>
                 </div>

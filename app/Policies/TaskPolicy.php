@@ -63,9 +63,9 @@ class TaskPolicy
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Task $task)
+    public function delete(User $user)
     {
-        return $user->is_admin || $task->user_id == auth()->id();
+        return $user->is_admin;
     }
 
     /**

@@ -36,7 +36,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('tasks', [App\Http\Controllers\Admin\TaskController::class,'index'])->name('tasks.index');
         Route::get('tasks/create', [App\Http\Controllers\Admin\TaskController::class,'create'])->name('tasks.create');
         Route::get('tasks/edit', [App\Http\Controllers\Admin\TaskController::class,'update'])->name('tasks.edit');
-        Route::post('tasks/destroy/{task}', [App\Http\Controllers\Admin\TaskController::class,'destroy'])->name('tasks.destroy');
+        Route::delete('tasks/{task}', [App\Http\Controllers\Admin\TaskController::class,'destroy']);
+        Route::post('tasks/store', [App\Http\Controllers\Admin\TaskController::class,'store']);
     });
 
     Route::group([
@@ -46,7 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
         // Route::get('tasks', [App\Http\Controllers\User\TaskController::class, 'index'])->name('tasks.index');
     });
 
-    Route::resource('/tasks' ,App\Http\Controllers\TaskController::class);
+    
 });
 
 

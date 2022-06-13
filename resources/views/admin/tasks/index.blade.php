@@ -14,7 +14,7 @@
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6">
                                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-md">
                                     @can('create', \App\Models\Task::class)
-                                    <a href="{{route('tasks.create')}}" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white">Add new User</a>
+                                    <a href="{{url('admin/tasks/create')}}" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white">Add new User</a>
                                     @endcan
                                     <table class="min-w-full divide-y divide-gray-200">
                                         <thead class="bg-gray-50">
@@ -44,13 +44,14 @@
                                                 </td>
                                                 <td>
                                                 @can('update', $task)
-                                                    <a href="{{route('tasks.update', $task)}}" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white">Edit</a>
+                                                    <a href="{{url('tasks/edit', $task)}}" class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white">Edit</a>
                                                 @endcan
                                                 </td>
                                                 <td>
                                                 @can('delete', $task)
-                                                <form action="{{route('tasks.destroy',$task)}}" method="POST">
+                                                <form action="{{url('admin/tasks',$task)}}" method="POST">
                                                     @csrf
+                                                    @method('delete')
                                                     <button class="mb-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white" type="submit">Delete</button>
                                                 </form>
                                                     
