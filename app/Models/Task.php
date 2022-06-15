@@ -8,10 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-    protected $fillable = ['description','due_date','user_id'];
+    protected $fillable = ['description','due_date','user_id','read'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function incrementReadCount() 
+    {
+        $this->read++;
+
+        return $this->save();
     }
 }

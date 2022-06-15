@@ -25,4 +25,18 @@ class TaskController extends Controller
 
         return redirect()->back()->with('success', 'You completed your task');  
     }
+
+    public function comments()
+    {
+        $tasks = auth()->user()->tasks->where('comments', '!=', 'NULL')->where('completed',0);
+
+        foreach($tasks as $task)
+        {
+            $task->update([
+                'read' => 1
+            ]);
+        }
+
+        return view('user.tasks.comments', compact('tasks'));
+    }
 }

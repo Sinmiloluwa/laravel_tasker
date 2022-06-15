@@ -56,4 +56,31 @@ class TaskController extends Controller
         return redirect()->route('admin.tasks.index');
     }
 
+    public function completed()
+    {
+        $tasks = Task::where('completed',1)->get();
+        
+        return view('admin.completed', compact('tasks'));
+    }
+
+    public function comment(Request $request, $task)
+    {
+        Task::where('id',$task)->update([
+            'comments' => $request->comment,
+            'read' => 0,
+            'completed' => 0
+        ]);
+
+        return redirect()->back(); 
+    }
+
+    public function approve($task)
+    {
+        Task::where('id',$task)->update([
+            'approved' => 1
+        ]);
+
+        return redirect()->route('admin.tasks.index');
+    }
+
 }

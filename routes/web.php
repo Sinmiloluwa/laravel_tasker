@@ -38,6 +38,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('tasks/edit', [App\Http\Controllers\Admin\TaskController::class,'update'])->name('tasks.edit');
         Route::delete('tasks/{task}', [App\Http\Controllers\Admin\TaskController::class,'destroy']);
         Route::post('tasks/store', [App\Http\Controllers\Admin\TaskController::class,'store']);
+        Route::get('tasks/completed', [App\Http\Controllers\Admin\TaskController::class, 'completed'])->name('completed');
+        Route::post('tasks/comment/{task}', [App\Http\Controllers\Admin\TaskController::class, 'comment']);
+        Route::post('tasks/approve/{task}', [App\Http\Controllers\Admin\TaskController::class, 'approve']);
     });
 
     Route::group([
@@ -46,6 +49,7 @@ Route::group(['middleware' => 'auth'], function() {
     ], function(){
         Route::get('tasks', [App\Http\Controllers\User\TaskController::class, 'index'])->name('tasks.index');
         Route::post('tasks/completed/{task}', [App\Http\Controllers\User\TaskController::class, 'completed']);
+        Route::get('tasks/comments', [App\Http\Controllers\User\TaskController::class, 'comments']);
     });
 
     

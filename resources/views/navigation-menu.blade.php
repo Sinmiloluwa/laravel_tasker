@@ -16,15 +16,39 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
+                @if (Auth::user()->is_admin == 0)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('tasks') }}" :active="request()->routeIs('user.tasks.index')">
+                    <x-jet-nav-link href="{{ url('user/tasks') }}" :active="request()->routeIs('user.tasks.index')">
                         {{ __('All Tasks') }}
                     </x-jet-nav-link>
                 </div>
+                @endif
                 @if (Auth::user()->is_admin == 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('tasks') }}" :active="request()->routeIs('user.tasks.index')">
+                    <x-jet-nav-link href="{{ url('admin/tasks') }}" :active="request()->routeIs('user.tasks.index')">
+                        {{ __('All Tasks') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
+                @if (Auth::user()->is_admin == 1)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ url('admin/tasks/completed') }}" :active="request()->routeIs('completed')">
                         {{ __('Recently Completed') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
+                @if (Auth::user()->is_admin == 0)
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ url('user/tasks/comments') }}" :active="request()->routeIs('completed')">
+                        @php
+                        $comment = \App\Models\Task::where('user_id',Auth::id())->whereNotNull('comments')->where('read', '==', 0)->get();
+                        $comments = count($comment);
+                        @endphp
+                        @if($comments == 0)
+                        {{ __('Comments') }}
+                        @else
+                        {{ __('Comments') }} <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-white bg-red-600 rounded-full">{{$comments}}</span>
+                        @endif
                     </x-jet-nav-link>
                 </div>
                 @endif
