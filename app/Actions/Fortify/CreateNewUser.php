@@ -24,13 +24,18 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+            'phone' => ['required', 'min:11'],
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : ''
         ])->validate();
+
+        $basic  = new \Nexmo\Client\Credentials\Basic(config('VONAGE_API'), config('VONAGE_API_SECRET');
+        $client = new \Nexmo\Client($basic);
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'phone' => $input['phone']
         ]);
     }
 }
