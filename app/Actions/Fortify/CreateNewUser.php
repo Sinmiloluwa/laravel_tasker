@@ -24,18 +24,26 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'phone' => ['required', 'min:11'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : ''
         ])->validate();
 
-        $basic  = new \Nexmo\Client\Credentials\Basic(config('VONAGE_API'), config('VONAGE_API_SECRET');
-        $client = new \Nexmo\Client($basic);
+        $verificationCode = random_int(11111, 99999);
+
+        $basic  = new \Vonage\Client\Credentials\Basic(env('VONAGE_API'), env('VONAGE_API_SECRET'));
+        $client = new \Vonage\Client($basic);
+
+        $client->message()->send([
+            'to' => '+234 808 045 5426',
+            'from' => 'Taskert',
+            'text' => 'Welcome to Taskert. Your verification code is '. $verificationCode 
+        ]);
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'phone' => $input['phone']
+            'phone' => '+234 808 045 5426',
+            'otp' => $verificationCode
         ]);
     }
 }
